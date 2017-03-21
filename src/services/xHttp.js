@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 import config from '../../config'
 
-function successParse (res, load) {
+function successParse(res, load) {
   if (load) {
     Vue.$vux.loading.hide()
   }
@@ -13,7 +13,7 @@ function successParse (res, load) {
   }
 }
 
-function errorParse (ex, load) {
+function errorParse(ex, load) {
   if (load) {
     Vue.$vux.loading.hide()
   }
@@ -31,7 +31,7 @@ function errorParse (ex, load) {
   }
 }
 
-function send (url, method, body, options, load, loadMsg) {
+function send(url, method, body, options, load, loadMsg) {
   if (load) {
     Vue.$vux.loading.show(loadMsg)
   }

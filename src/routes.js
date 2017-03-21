@@ -10,7 +10,7 @@ import Hale from './pages/Demos/Hale.vue'
 import News from './pages/hupu/News.vue'
 
 module.exports = {
-  defaultTitle: 'vux模版项目',
+  defaultTitle: '虎扑NBA',
   routes: [
     {path: '/', component: Index},
     {path: '/button', component: Button, meta: {title: '按钮'}},

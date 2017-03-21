@@ -52,7 +52,7 @@ module.exports = {
         }
       },
       '/localApi': {
-        target: 'http://10.10.133.211:8888/',
+        target: 'http://10.10.133.211:8099',
         changeOrigin: true,
         pathRewrite: {
           '^/localApi': ''

@@ -9,9 +9,9 @@
             </div>
             <div class="news-navigation">
                 <tab>
-                    <tab-item :selected="demo1 === 'NBA'" @click="demo1 = 'NBA'">NBA</tab-item>
-                    <tab-item :selected="demo1 === 'xx1'" @click="demo1 = 'xx1'">xx1</tab-item>
-                    <tab-item :selected="demo1 === 'xx2'" @click="demo1 = 'xx2'">xx2</tab-item>
+                    <tab-item :selected="navigationTitle === 'NBA'" @click="navigationTitle = 'NBA'">NBA</tab-item>
+                    <tab-item :selected="navigationTitle === 'xx1'" @click="navigationTitle = 'xx1'">xx1</tab-item>
+                    <tab-item :selected="navigationTitle === 'xx2'" @click="navigationTitle = 'xx2'">xx2</tab-item>
                 </tab>
             </div>
             <div class="new-body">
@@ -21,15 +21,21 @@
                             <div class="info-row">
                                 <div class="entry-title-box">
                                     <a target="_blank" class="entry-title" v-bind:title="item.title"
-                                       v-bind:href="item.url">{{item.name}}</a>
+                                       v-bind:href="item.link">{{item.title}}</a>
                                 </div>
                                 <div class="entry-date-box">
-                                    <div class="entry-date">{{ item.data }}</div>
+                                    <div class="entry-date">{{ item.time }}</div>
                                 </div>
                             </div>
                         </div>
                     </li>
                 </ul>
+            </div>
+            <div class="new-footer">
+                <a v-bind:page="paging.homePage" @click="getList(paging.homePage)">首页</a>
+                <a v-bind:page="paging.previousPage" @click="getList(paging.previousPage)">上一页</a>
+                <a v-bind:page="paging.nextPage" @click="getList(paging.nextPage)">下一页</a>
+                <a v-bind:page="paging.lastPage" @click="getList(paging.lastPage)">末页</a>
             </div>
         </div>
     </div>
@@ -45,19 +51,13 @@
     data () {
       return {
         isShow: false,
-        demo1: 'NBA',
+        navigationTitle: 'NBA',
         list: []
       }
     },
     computed: {},
     created () {
-      this.$api.xHttp.get('/localApi').then((data) => {
-        console.log('data:', data)
-        this.list = data
-        this.isShow = true
-      }).catch(({code, msg}) => {
-        this.$vux.alert.show({content: msg})
-      })
+      this.getList(1);
     },
     beforeDestroy () {},
     mounted () {},
@@ -71,7 +71,20 @@
       // 可以访问组件实例 `this`
       next()
     },
-    methods: {}
+    methods: {
+      getList(pageSize){
+        let url = '/localApi/hupu/getlist/' + pageSize
+        console.log("url:", url)
+        this.$api.xHttp.get(url).then((data) => {
+          console.log("data:", data)
+          this.list = data.list
+          this.paging = data.paging
+          this.isShow = true
+        }).catch(({code, msg}) => {
+          this.$vux.alert.show({content: msg})
+        })
+      }
+    }
   }
 </script>
 
@@ -184,6 +197,32 @@
                         }
                     }
                 }
+            }
+        }
+
+        .new-footer {
+            background-color: #f3f3f3;
+            display: block;
+            display: -moz-box;
+            display: -webkit-box;
+            width: 100%;
+            text-align: center;
+            padding: 14px 6px;
+            border-bottom: 1px solid #e3e4e5;
+            box-sizing: border-box;
+
+            a {
+                display: block;
+                background-color: #fff;
+                padding: 8px 6px;
+                color: #000;
+                border: 1px solid #e3e3e3;
+                -moz-box-flex: 1;
+                -webkit-box-flex: 1;
+                margin: 0 4px;
+                -webkit-tap-highlight-color: transparent;
+                text-decoration: none;
+                box-sizing: border-box;
             }
         }
     }
