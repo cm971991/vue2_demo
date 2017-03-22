@@ -10,8 +10,8 @@ import routes from './routes'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  mode: 'history',
-  base: config.build.assetsPublicPath,
+  // mode: 'history',
+  // base: config.build.assetsPublicPath,
   routes: routes.routes
 })
 

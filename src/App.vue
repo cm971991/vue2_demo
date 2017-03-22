@@ -56,9 +56,10 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
-  @import '~vux/src/styles/reset.less';
-  @import '~vux/src/styles/1px.less';
+  @import "~vux/src/styles/reset.less";
+  @import "~vux/src/styles/1px.less";
   @import "assets/styles/global/close";
   @import "assets/styles/App/common";
   @import "assets/styles/App/custom";
+  @import "assets/styles/Global/global.css";
 </style>

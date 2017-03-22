@@ -20,8 +20,8 @@
                         <div class="entry-info">
                             <div class="info-row">
                                 <div class="entry-title-box">
-                                    <a target="_blank" class="entry-title" v-bind:title="item.title"
-                                       v-bind:href="item.link">{{item.title}}</a>
+                                    <a target="_blank" class="entry-title" :title="item.title"
+                                       @click="detail(item.article)">{{item.title}}</a>
                                 </div>
                                 <div class="entry-date-box">
                                     <div class="entry-date">{{ item.time }}</div>
@@ -32,10 +32,10 @@
                 </ul>
             </div>
             <div class="new-footer">
-                <a v-bind:page="paging.homePage" @click="getList(paging.homePage)">首页</a>
-                <a v-bind:page="paging.previousPage" @click="getList(paging.previousPage)">上一页</a>
-                <a v-bind:page="paging.nextPage" @click="getList(paging.nextPage)">下一页</a>
-                <a v-bind:page="paging.lastPage" @click="getList(paging.lastPage)">末页</a>
+                <a :page="paging.homePage" @click="getList(paging.homePage)">首页</a>
+                <a :page="paging.previousPage" @click="getList(paging.previousPage)">上一页</a>
+                <a :page="paging.nextPage" @click="getList(paging.nextPage)">下一页</a>
+                <a :page="paging.lastPage" @click="getList(paging.lastPage)">末页</a>
             </div>
         </div>
     </div>
@@ -43,6 +43,7 @@
 
 <script>
   import {Tab, TabItem} from 'vux'
+  import VueRouter from 'vue-router'
 
   export default{
     components: {
@@ -73,20 +74,28 @@
     },
     methods: {
       getList(pageSize){
-        let url = '/localApi/hupu/getlist/' + pageSize
-        console.log("url:", url)
+        let url = '/localApi/hupu/getlist/' + pageSize;
         this.$api.xHttp.get(url).then((data) => {
-          console.log("data:", data)
-          this.list = data.list
-          this.paging = data.paging
+          console.log("data:", data);
+          this.list = data.list;
+          this.paging = data.paging;
           this.isShow = true
         }).catch(({code, msg}) => {
           this.$vux.alert.show({content: msg})
         })
+      },
+      detail(item){
+        let local = localStorage.getItem(item.id);
+        if (!local) {
+          localStorage.setItem(item.id, JSON.stringify(item));
+        }
+        const router = new VueRouter({});
+        router.push({path: '/detail', query: {id: item.id}})
       }
     }
   }
 </script>
+
 
 <style lang="less" rel="stylesheet/less">
     .news-contain {

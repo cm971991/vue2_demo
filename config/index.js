@@ -7,7 +7,7 @@ module.exports = {
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: (process.env.NODE_ENV === 'testing' ? '/test' : '') + '/vux_demo/',  // 项目发布的二级目录
+    assetsPublicPath: (process.env.NODE_ENV === 'testing' ? '/test' : ''),  // 项目发布的二级目录
     productionSourceMap: false, // 打包时是否生成SourceMap
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.

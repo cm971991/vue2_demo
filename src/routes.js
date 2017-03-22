@@ -8,6 +8,7 @@ import Wexin from './pages/Demos/Wexin.vue'
 import Http from './pages/Demos/Http.vue'
 import Hale from './pages/Demos/Hale.vue'
 import News from './pages/hupu/News.vue'
+import Detail from  './pages/hupu/Detail.vue'
 
 module.exports = {
   defaultTitle: '虎扑NBA',
@@ -28,10 +29,11 @@ module.exports = {
     {path: '/wx', component: Wexin},
     {path: '/http', component: Http},
     {path: '/hale', component: Hale},
-    {path: '/news', component: News}
+    {path: '/news', component: News},
+    {path: '/detail', component: Detail}
   ],
   // 默认页面头部留2%高度的余白，不需要的页面需特殊处理
-  noShowTopSpacePage: ['/news'],
+  noShowTopSpacePage: ['/news', '/detail'],
   // 默认展示底部提示，不需要的页面需特殊处理
-  noShowFootPage: ['/button', '/news']
+  noShowFootPage: ['/button', '/news', '/detail']
 }
