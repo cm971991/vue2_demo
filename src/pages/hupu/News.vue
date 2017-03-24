@@ -3,15 +3,13 @@
         <div class="news-contain">
             <div class="new-head">
                 <div class="container">
-                    <img src="../../assets/images/hp_logo_nba.png"
-                         class="logo">
+                    <h1>虎扑体育</h1>
                 </div>
             </div>
             <div class="news-navigation">
-                <tab>
+                <tab bar-active-color="#e01a1a" active-color="#e01a1a">
                     <tab-item :selected="navigationTitle === 'NBA'" @click="navigationTitle = 'NBA'">NBA</tab-item>
-                    <tab-item :selected="navigationTitle === 'xx1'" @click="navigationTitle = 'xx1'">xx1</tab-item>
-                    <tab-item :selected="navigationTitle === 'xx2'" @click="navigationTitle = 'xx2'">xx2</tab-item>
+                    <tab-item :selected="navigationTitle === 'CBA'" @click="navigationTitle = 'CBA'">CBA</tab-item>
                 </tab>
             </div>
             <div class="new-body">
@@ -21,7 +19,7 @@
                             <div class="info-row">
                                 <div class="entry-title-box">
                                     <a target="_blank" class="entry-title" :title="item.title"
-                                       @click="detail(item.article)">{{item.title}}</a>
+                                       @click="detail(item)">{{item.title}}</a>
                                 </div>
                                 <div class="entry-date-box">
                                     <div class="entry-date">{{ item.time }}</div>
@@ -87,7 +85,9 @@
       detail(item){
         let local = localStorage.getItem(item.id);
         if (!local) {
-          localStorage.setItem(item.id, JSON.stringify(item));
+          console.log("local is empty");
+          console.log("JSON.stringify(item.article):", JSON.stringify(item.article))
+          localStorage.setItem(item.id, JSON.stringify(item.article));
         }
         const router = new VueRouter({});
         router.push({path: '/detail', query: {id: item.id}})
@@ -102,6 +102,8 @@
         background-color: #fff;
 
         .new-head {
+            background-color: #e01a1a;
+
             .container {
                 width: 100%;
                 display: flex;
@@ -116,14 +118,13 @@
                 margin-right: auto;
                 border-bottom: 1px solid #eae5e5;
 
-                img {
-                    width: 100px;
-                    height: 60%;
-                    cursor: pointer;
-                    border: 0;
-                    box-sizing: border-box;
-                    outline: none;
-                    margin: 15px 0 10px 0;
+                h1 {
+                    color: #fff;
+                    font-size: 18px;
+                    padding: 10px 0;
+                    text-align: center;
+                    vertical-align: middle;
+                    width: 100%;
                 }
             }
         }
@@ -151,6 +152,7 @@
                     user-select: none;
                     box-sizing: border-box;
                     outline: none;
+                    border-bottom: 1px solid #e5e5e5;
 
                     .entry-info {
                         display: flex;
